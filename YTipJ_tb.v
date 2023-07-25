@@ -4,32 +4,27 @@
 
 `timescale 1ns/1ps
 
-// 2x4 positive output, negative enable decoder
-module dec2x4 (EN, in, out);
-      input [1:0] in;
-      input EN;
-      output [3:0] out;
+module struct_tb();
+    wire t_F;
+    reg [3:0] t_input;
+    integer i;
 
-      always@(W or EN)
-            case({EN, w})
-                  3'b000: out = 4'b1000;
-                  3'b001: out = 4'b0100;
-                  3'b010: out = 4'b0010;
-                  3'b011: out = 4'b0001;
-                  default: out = 4'b0000;
-            endcase
+    main dut (t_F,t_input[3],t_input[2],t_input[1],t_input[0]);
+    
+    initial
+        begin
+            t_input = 4'b0000;
+            for (i = 1; i < 16; i++)
+                #50 t_input = i;
+        end
 
-endmodule
-
-module main(F, A, B, C, D)
-
-      input A, B, C, D;
-      output F;
-      en = 1'b0;
-
-      wire [3:0] w1;
-      dec2x4 G1(en, {A, B}, w1);
-
-      
-
+    initial
+        begin
+            $display("Structural Function: 2x4 positive output, negative enable decoder");
+            $display("Boolean Function: F = (AB' + A'B)(C + D')");
+            $display("Dataflow Modeling (Structural)");
+            $monitor("Time = %03d, ABCD = %b, F = %b", $time, t_input, t_F);
+            $dumpfile("YTipJ.vcd");
+            $dumpvars();
+        end
 endmodule
