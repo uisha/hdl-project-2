@@ -1,5 +1,6 @@
 // Structural Function: 2x4 positive output, negative enable decoder
 // Boolean Function: F = (AB' + A'B)(C + D')
+// Simplified SOP: Σm(5,6,7,8,10,11)
 // Dataflow Modeling (Structural)
 
 `timescale 1ns/1ps
