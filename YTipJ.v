@@ -47,7 +47,8 @@ module main(F, A, B, C, D);
       wire [3:0] d4;
       dec2x4 G5(w[3], {C, D}, d4); // (EN, in, out)
 
-      assign F = d1[0] | d2[1] | d3[2] | d4[3];
+      // Simplified SOP: Σm(5,6,7,8,10,11)
+      assign F = d2[1] | d2[2] | d2[3] | d3[0] | d3[2] | d3[3];
 
 
 endmodule
